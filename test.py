@@ -1,34 +1,28 @@
 from selenium import webdriver
 import time
-import math
-
-
-def calc(x):
-    return str(math.log(abs(12 * math.sin(int(x)))))
-
+import os
+from selenium.webdriver.common.by import By
 
 try:
-    link = "http://SunInJuly.github.io/execute_script.html"
+    link = "http://suninjuly.github.io/file_input.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
-    x_element = browser.find_element_by_xpath("//div/label/span[@id='input_value']")
-    x = x_element.text
-    y = calc(x)
+    input1 = browser.find_element_by_xpath("//div/input[@name='firstname']")
+    input1.send_keys("Максим")
 
-    button = browser.find_element_by_xpath("//button")
-    browser.execute_script("return arguments[0].scrollIntoView(true);", button)
-    button.click()
+    input2 = browser.find_element_by_xpath("//div/input[@name='lastname']")
+    input2.send_keys("Петров")
 
-    input1 = browser.find_element_by_id("answer")
-    input1.send_keys(y)
+    input3 = browser.find_element_by_xpath("//div/input[@name='email']")
+    input3.send_keys("dhcch@email.ru")
 
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    file_name = "manyal.txt"
+    file_path = os.path.join(current_dir, file_name)
+    element = browser.find_element(By.CSS_SELECTOR, "[type='file']")
+    element.send_keys(file_path)
 
-    option1 = browser.find_element_by_xpath("//div/input[@type='checkbox']")
-    option1.click()
-
-    option2 = browser.find_element_by_id("robotsRule")
-    option2.click()
 
     input2 = browser.find_element_by_xpath("//button")
     input2.click()
