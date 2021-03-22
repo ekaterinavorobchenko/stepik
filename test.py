@@ -1,29 +1,31 @@
 from selenium import webdriver
 import time
-import math
+from selenium.webdriver.support.ui import Select
 
 
-def calc(x):
-    return str(math.log(abs(12 * math.sin(int(x)))))
-
+def sum(x, y):
+    return str(x + y)
 
 try:
-    link = "http://suninjuly.github.io/get_attribute.html"
+    link = "http://suninjuly.github.io/selects1.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
-    x_element = browser.find_element_by_xpath("//div/h2/img")
-    x = x_element.get_attribute("valuex")
-    y = calc(x)
+    x_element = browser.find_element_by_id("num1")
+    x_e = x_element.text
+    x = int(x_e)
 
-    input1 = browser.find_element_by_id("answer")
-    input1.send_keys(y)
+    y_element = browser.find_element_by_id("num2")
+    y_e = y_element.text
+    y = int(y_e)
+    summa = sum(x,y)
 
 
-    option1 = browser.find_element_by_xpath("//div/input[@type='checkbox']")
-    option1.click()
-    option1 = browser.find_element_by_id("robotsRule")
-    option1.click()
+
+
+    select = Select(browser.find_element_by_class_name("custom-select"))
+    select.select_by_value(summa)  # ищем элемент с текстом "Python"
+
 
     # Отправляем заполненную форму
     button = browser.find_element_by_css_selector("button.btn")
