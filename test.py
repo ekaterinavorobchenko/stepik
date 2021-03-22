@@ -1,18 +1,28 @@
 from selenium import webdriver
 import time
+import math
+
+
 
 try:
-    link = "http://suninjuly.github.io/registration1.html"
+    link = "http://suninjuly.github.io/math.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
-    # Ваш код, который заполняет обязательные поля
-    input1=browser.find_element_by_class_name("first")
-    input1.send_keys("Дима")
-    input2=browser.find_element_by_class_name("second")
-    input2.send_keys("Иванов")
-    input3=browser.find_element_by_class_name("third")
-    input3.send_keys("edcjdk,@mail.ru")
+
+    def calc(x):
+        return str(math.log(abs(12 * math.sin(int(x)))))
+    x_element = browser.find_element_by_id("#input_value")
+    x = x_element.text
+    y = calc(x)
+    input1= browser.find_element_by_id("#nowrap")
+    input1.send_keys("y")
+
+
+    option1 = browser.find_element_by_xpath("//div/input[@type='checkbox']")
+    option1.click()
+    option1 = browser.find_element_by_id("#peopleRule")
+    option1.click()
 
     # Отправляем заполненную форму
     button = browser.find_element_by_css_selector("button.btn")
