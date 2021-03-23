@@ -1,29 +1,48 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
-import math
+import unittest
 
-def calc(x):
-    return str(math.log(abs(12 * math.sin(int(x)))))
-
-browser = webdriver.Chrome()
-browser.get("http://suninjuly.github.io/explicit_wait2.html")
+class TestAbs(unittest.TestCase):
 
 
-# говорим Selenium проверять в течение 5 секунд, пока кнопка не станет кликабельной
-button=browser.find_element_by_id('book')
 
-price= WebDriverWait(browser, 12).until(
-        EC.text_to_be_present_in_element((By.ID, "price"),"$100")
-    )
-button.click()
+    link = "http://suninjuly.github.io/registration1.html"
+    browser = webdriver.Chrome()
+    browser.get(link)
 
-x_element = browser.find_element_by_id('input_value')
-x = x_element.text
-y = calc(x)
-input1 = browser.find_element_by_id('answer')
-input1.send_keys(y)
+    input = browser.find_element_by_xpath('//div[1]/div[1]/input')
+    input.send_keys('Маша')
 
-button2=browser.find_element_by_id('solve')
-button2.click()
+    input = browser.find_element_by_xpath('//div[1]/div[2]/input')
+    input.send_keys('Дубинина')
+
+    input = browser.find_element_by_xpath('//div[1]/div[3]/input')
+    input.send_keys('eka-vorobchenko@mail.ru')
+
+    button = browser.find_element_by_xpath('//div/form/button')
+    button.click()
+
+    def test_abs1(self):
+        self.assertEqual(browser.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+
+if h1 == "Congratulations! You have successfully registered!":
+    unittest.main()
+
+    link = "http://suninjuly.github.io/registration2.html"
+    browser = webdriver.Chrome()
+    browser.get(link)
+
+    input = browser.find_element_by_xpath('//div[1]/div[1]/input')
+    input.send_keys('Маша')
+
+    input = browser.find_element_by_css_xpath('//div[1]/div[2]/input')
+    input.send_keys('dsjhckdhdhbck@fjdzkvjndfv')
+
+    button = browser.find_element_by_xpath('//div/form/button')
+    button.click()
+
+
+    def test_abs2(self):
+        self.assertEqual(browser.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+
+if h1 == "Congratulations! You have successfully registered!":
+    unittest.main()
