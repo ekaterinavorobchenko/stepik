@@ -1,48 +1,56 @@
 from selenium import webdriver
 import unittest
+import time
 
 class TestAbs(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path=r'D:PATHchromedriver.exe')
+        self.driver = webdriver.Chrome()
         print("Browser Opened")
-        
-    def test_open_chercher_tech(self):
+
+    def test_open_chercher_tech1(self):
         self.driver.get("http://suninjuly.github.io/registration1.html")
+        time.sleep(2)
         print("Chrome")
 
-    input = driver.find_element_by_xpath('//div[1]/div[1]/input')
-    input.send_keys('Маша')
 
-    input = driver.find_element_by_xpath('//div[1]/div[2]/input')
-    input.send_keys('Дубинина')
+        input = self.driver.find_element_by_css_selector('.first_block .first')
+        input.send_keys('Маша')
 
-    input = driver.find_element_by_xpath('//div[1]/div[3]/input')
-    input.send_keys('eka-vorobchenko@mail.ru')
+        input = self.driver.find_element_by_css_selector('.first_block .second')
+        input.send_keys('Дубинина')
 
-    button = driver.find_element_by_xpath('//div/form/button')
-    button.click()
+        input = self.driver.find_element_by_css_selector('.first_block .third')
+        input.send_keys('eka-vorobchenko@mail.ru')
 
-    def test_abs1(self):
-        self.assertEqual(browser.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+        time.sleep(2)
 
+        button = self.driver.find_element_by_css_selector('.btn')
+        button.click()
 
-    link = "http://suninjuly.github.io/registration2.html"
-    browser = webdriver.Chrome()
-    browser.get(link)
-
-    input = browser.find_element_by_xpath('//div[1]/div[1]/input')
-    input.send_keys('Маша')
-
-    input = browser.find_element_by_xpath('//div[1]/div[2]/input')
-    input.send_keys('dsjhckdhdhbck@fjdzkvjndfv')
-
-    button = browser.find_element_by_xpath('//div/form/button')
-    button.click()
+        self.assertEqual(self.driver.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
 
 
-    def test_abs2(self):
-        self.assertEqual(browser.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+    def test_open_chercher_tech2(self):
+        self.driver.get("http://suninjuly.github.io/registration2.html")
+        time.sleep(2)
+        print("Chrome")
+
+        input = self.driver.find_element_by_css_selector('.first_block .first')
+        input.send_keys('Маша')
+
+        input = self.driver.find_element_by_css_selector('.first_block .third')
+        input.send_keys('dsjhckdhdhbck@fjdzkvjndfv')
+
+        time.sleep(2)
+
+        button = self.driver.find_element_by_class_name('btn')
+        button.click()
+
+        self.assertEqual(self.driver.find_element_by_tag_name("h1").text,"Congratulations! You have successfully registered!", 'Error Registration 1')
+
+    def tearDown(self):
+        self.driver.close()
 
 if __name__ == "__main__":
     unittest.main()
