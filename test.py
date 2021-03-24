@@ -1,56 +1,28 @@
-from selenium import webdriver
 import pytest
-import time
+from selenium import webdriver
+
+link = "http://selenium1py.pythonanywhere.com/"
 
 
-class TestAbs:
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-        print("Browser Opened")
-
-    def test_open_chercher_tech1(self):
-        self.driver.get("http://suninjuly.github.io/registration1.html")
-        time.sleep(2)
-        print("Chrome")
+@pytest.fixture(scope="function")
+def browser():
+    print("\nstart browser for test..")
+    browser = webdriver.Chrome()
+    yield browser
+    print("\nquit browser..")
+    browser.quit()
 
 
-        input = self.driver.find_element_by_css_selector('.first_block .first')
-        input.send_keys('Маша')
+class TestMainPage1():
 
-        input = self.driver.find_element_by_css_selector('.first_block .second')
-        input.send_keys('Дубинина')
-
-        input = self.driver.find_element_by_css_selector('.first_block .third')
-        input.send_keys('eka-vorobchenko@mail.ru')
-
-        time.sleep(2)
-
-        button = self.driver.find_element_by_css_selector('.btn')
-        button.click()
-
-        self.assertEqual(self.driver.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+    @pytest.mark.skip
+    def test_guest_should_see_login_link(self, browser):
+        browser.get(link)
+        print("smoke")
+        browser.find_element_by_css_selector("#login_link")
 
 
-    def test_open_chercher_tech2(self):
-        self.driver.get("http://suninjuly.github.io/registration2.html")
-        time.sleep(2)
-        print("Chrome")
-
-        input = self.driver.find_element_by_css_selector('.first_block .first')
-        input.send_keys('Маша')
-
-        input = self.driver.find_element_by_css_selector('.first_block .third')
-        input.send_keys('dsjhckdhdhbck@fjdzkvjndfv')
-
-        time.sleep(2)
-
-        button = self.driver.find_element_by_class_name('btn')
-        button.click()
-
-        self.assertEqual(self.driver.find_element_by_tag_name("h1").text,"Congratulations! You have successfully registered!", 'Error Registration 1')
-
-    def tearDown(self):
-        self.driver.close()
-
-if __name__ == "__main__":
-    pytest.main()
+    def test_guest_should_see_basket_link_on_the_main_page(self, browser):
+        browser.get(link)
+        print("win10")
+        browser.find_element_by_css_selector(".basket-mini .btn-group > a")
