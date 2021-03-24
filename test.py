@@ -1,9 +1,9 @@
 from selenium import webdriver
-import unittest
+import pytest
 import time
 
-class TestAbs(unittest.TestCase):
 
+class TestAbs:
     def setUp(self):
         self.driver = webdriver.Chrome()
         print("Browser Opened")
@@ -53,4 +53,4 @@ class TestAbs(unittest.TestCase):
         self.driver.close()
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main()
