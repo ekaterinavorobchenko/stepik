@@ -1,9 +1,61 @@
+from selenium import webdriver
+import unittest
+import time
 
-def test_buttun(browser):
-    link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    browser.get(link)
-    button = browser.find_element_by_css_selector("#add_to_basket_form")
-    assert button, "Кнопка не найдена"
+class TestAbs(unittest.TestCase):
 
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        print("Browser Opened")
+
+    def test_open_chercher_tech1(self):
+        self.driver.get("http://suninjuly.github.io/registration1.html")
+        time.sleep(2)
+        print("Chrome")
+
+
+        input = self.driver.find_element_by_class_name('first')
+        input.send_keys('Маша')
+
+        input = self.driver.find_element_by_class_name('second')
+        input.send_keys('Дубинина')
+
+        input = self.driver.find_element_by_class_name('third')
+        input.send_keys('eka-vorobchenko@mail.ru')
+
+        time.sleep(2)
+
+        button = self.driver.find_element_by_css_selector('.btn')
+        button.click()
+
+        self.assertEqual(self.driver.find_element_by_tag_name("h1").text, "Congratulations! You have successfully registered!", 'Error Registration 1')
+
+
+    def test_open_chercher_tech2(self):
+        self.driver.get("http://suninjuly.github.io/registration2.html")
+        time.sleep(2)
+        print("Chrome")
+
+        input = self.driver.find_element_by_class_name('first')
+        input.send_keys('Маша')
+
+        input = self.driver.find_element_by_by_class_name('second')
+        input.send_keys('dsjhckdhdhbck@fjdzkvjndfv')
+
+        input = self.driver.find_element_by_class_name('third')
+        input.send_keys('eka-vorobchenko@mail.ru')
+
+        time.sleep(2)
+
+        button = self.driver.find_element_by_class_name('btn')
+        button.click()
+
+        self.assertEqual(self.driver.find_element_by_tag_name("h1").text,"Congratulations! You have successfully registered!", 'Error Registration 1')
+
+    def tearDown(self):
+        self.driver.close()
+
+if __name__ == "__main__":
+    unittest.main()
 
 
